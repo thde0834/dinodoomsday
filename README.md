@@ -1,7 +1,7 @@
 # Dino Doomsday - Unity Game
 CU Boulder CSCI 4448 Semester Project
 
-#### Steps to open the project in Unity
+### Steps to open the project in Unity
 1. Clone this repo
 2. Download Unity Hub here: https://unity.com/unity-hub
 3. Click Open in the Unity Hub application
