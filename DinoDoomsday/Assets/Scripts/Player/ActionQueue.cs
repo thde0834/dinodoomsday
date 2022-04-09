@@ -8,14 +8,14 @@ namespace Player
     public class ActionQueue
     {
         private static ActionQueue instance = new ActionQueue();
-        private List<ActionKey> activeStates;
+        private List<ActionKey> activeActions;
 
         private event Action onUpdateQueue;
 
         private ActionQueue()
         {
             instance = this;
-            activeStates = new List<ActionKey>();
+            activeActions = new List<ActionKey>();
 
             onUpdateQueue += SendKey;
         }
@@ -34,14 +34,14 @@ namespace Player
 
         // Add ACTIVE Action to Queue
         // Combine Actions if valid
-        public void AddKey(ActionKey key)
+        public void Enqueue(ActionKey key)
         {
             // adding logic HERE
-            activeStates.Add(key);
+            activeActions.Add(key);
 
             // then add result ActionKey
             string keys = "";
-            foreach (var k in activeStates)
+            foreach (var k in activeActions)
             {
                 keys += k + " ";
             }
@@ -52,12 +52,13 @@ namespace Player
         }
 
         // Remove Action from Queue
-        public void RemoveKey(ActionKey key)
+        public void Dequeue(ActionKey key)
         {
-            activeStates.Remove(key);
+            
+            activeActions.Remove(key);
 
             string keys = "";
-            foreach (var k in activeStates)
+            foreach (var k in activeActions)
             {
                 keys += k + " ";
             }
@@ -69,13 +70,13 @@ namespace Player
 
         private void SendKey()
         {
-            if (activeStates.Count == 0)
+            if (activeActions.Count == 0)
             {
                 // send null
                 Debug.Log("idle");
                 return;
             }
-            Debug.Log(activeStates.Last());
+            Debug.Log(activeActions.Last());
             
         }
 

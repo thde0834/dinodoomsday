@@ -12,10 +12,10 @@ namespace Player
         private PlayerControls playerControls;
 
         // All ActionKeys that the Player has unlocked
-        private HashSet<ActionKey> availableStates = new HashSet<ActionKey>();
+        private HashSet<ActionKey> availableActions = new HashSet<ActionKey>();
 
         // ActionKeys that are accessible to the Player in real time
-        private HashSet<ActionKey> activeStates = new HashSet<ActionKey>();
+        private HashSet<ActionKey> activeActions = new HashSet<ActionKey>();
 
         public void Awake()
         {
@@ -25,20 +25,16 @@ namespace Player
             playerControls.Player.Enable();
         }
 
-        public void Start()
-        {
-        }
-
         public void AddKey(ActionKey key)
         {
-            if (availableStates.Contains(key))
+            if (availableActions.Contains(key))
             {
                 return;
             }
 
-            availableStates.Add(key);
+            availableActions.Add(key);
 
-            if (activeStates != null && !activeStates.Contains(key))
+            if (activeActions != null && !activeActions.Contains(key))
             {
                 EnableKey(key);
             }
@@ -46,14 +42,14 @@ namespace Player
 
         public void RemoveKey(ActionKey key)
         {
-            if (!availableStates.Contains(key))
+            if (!availableActions.Contains(key))
             {
                 return;
             }
 
-            availableStates.Remove(key);
+            availableActions.Remove(key);
 
-            if (activeStates != null && activeStates.Contains(key))
+            if (activeActions != null && activeActions.Contains(key))
             {
                 DisableKey(key);
             }
@@ -61,45 +57,48 @@ namespace Player
 
         public void EnableKey(ActionKey key)
         {
-            if (activeStates.Contains(key))
+            if (activeActions.Contains(key))
             {
                 return;
             }
 
-            activeStates.Add(key);
+            activeActions.Add(key);
 
             switch (key)
             {
                 case ActionKey.Move:
                     {
-                        playerControls.Player.Movement.performed += delegate (InputAction.CallbackContext context) { SendKey(key, context); };
-                        playerControls.Player.Movement.canceled += delegate (InputAction.CallbackContext context) { RemoveKey(key, context); };
+                        playerControls.Player.Move.performed += delegate (InputAction.CallbackContext context) { Enqueue(key, context); };
+                        playerControls.Player.Move.canceled += delegate (InputAction.CallbackContext context) { Dequeue(key, context); };
 
                         break;
                     }
                 case ActionKey.Attack:
                     {
-                        playerControls.Player.Attack.performed += delegate (InputAction.CallbackContext context) { SendKey(key, context); };
-                        playerControls.Player.Attack.canceled += delegate (InputAction.CallbackContext context) { RemoveKey(key, context); };
+                        playerControls.Player.Attack.performed += delegate (InputAction.CallbackContext context) { Enqueue(key, context); };
+                        playerControls.Player.Attack.canceled += delegate (InputAction.CallbackContext context) { Dequeue(key, context); };
 
                         break;
                     }
                 case ActionKey.Jump:
                     {
-                        playerControls.Player.Jump.performed += delegate (InputAction.CallbackContext context) { SendKey(key, context); };
-                        playerControls.Player.Jump.canceled += delegate (InputAction.CallbackContext context) { RemoveKey(key, context); };
+                        playerControls.Player.Jump.performed += delegate (InputAction.CallbackContext context) { Enqueue(key, context); };
+                        playerControls.Player.Jump.canceled += delegate (InputAction.CallbackContext context) { Dequeue(key, context); };
 
                         break;
                     }
                 case ActionKey.Dash:
                     {
-                        playerControls.Player.Dash.performed += delegate (InputAction.CallbackContext context) { SendKey(key, context); };
-                        playerControls.Player.Dash.canceled += delegate (InputAction.CallbackContext context) { RemoveKey(key, context); };
+                        playerControls.Player.Dash.performed += delegate (InputAction.CallbackContext context) { Enqueue(key, context); };
+                        playerControls.Player.Dash.canceled += delegate (InputAction.CallbackContext context) { Dequeue(key, context); };
 
                         break;
                     }
                 case ActionKey.Crouch:
                     {
+                        playerControls.Player.Crouch.performed += delegate (InputAction.CallbackContext context) { Enqueue(key, context); };
+                        playerControls.Player.Crouch.canceled += delegate (InputAction.CallbackContext context) { Dequeue(key, context); };
+
                         break;
                     }
                 default:
@@ -109,40 +108,47 @@ namespace Player
 
         public void DisableKey(ActionKey key)
         {
-            if (!activeStates.Contains(key))
+            if (!activeActions.Contains(key))
             {
                 return;
             }
 
-            activeStates.Remove(key);
+            activeActions.Remove(key);
 
             switch (key)
             {
                 case ActionKey.Move:
                     {
-                        playerControls.Player.Movement.performed -= delegate (InputAction.CallbackContext context) { SendKey(key, context); };
-                        playerControls.Player.Movement.canceled -= delegate (InputAction.CallbackContext context) { RemoveKey(key, context); };
+                        playerControls.Player.Move.performed -= delegate (InputAction.CallbackContext context) { Enqueue(key, context); };
+                        playerControls.Player.Move.canceled -= delegate (InputAction.CallbackContext context) { Dequeue(key, context); };
 
                         break;
                     }
                 case ActionKey.Attack:
                     {
-                        playerControls.Player.Attack.performed -= delegate (InputAction.CallbackContext context) { SendKey(key, context); };
-                        playerControls.Player.Attack.canceled -= delegate (InputAction.CallbackContext context) { RemoveKey(key, context); };
+                        playerControls.Player.Attack.performed -= delegate (InputAction.CallbackContext context) { Enqueue(key, context); };
+                        playerControls.Player.Attack.canceled -= delegate (InputAction.CallbackContext context) { Dequeue(key, context); };
 
                         break;
                     }
                 case ActionKey.Jump:
                     {
-                        playerControls.Player.Jump.performed -= delegate (InputAction.CallbackContext context) { SendKey(key, context); };
-                        playerControls.Player.Jump.canceled -= delegate (InputAction.CallbackContext context) { RemoveKey(key, context); };
+                        playerControls.Player.Jump.performed -= delegate (InputAction.CallbackContext context) { Enqueue(key, context); };
+                        playerControls.Player.Jump.canceled -= delegate (InputAction.CallbackContext context) { Dequeue(key, context); };
 
                         break;
                     }
                 case ActionKey.Dash:
                     {
-                        playerControls.Player.Dash.performed -= delegate (InputAction.CallbackContext context) { SendKey(key, context); };
-                        playerControls.Player.Dash.canceled -= delegate (InputAction.CallbackContext context) { RemoveKey(key, context); };
+                        playerControls.Player.Dash.performed -= delegate (InputAction.CallbackContext context) { Enqueue(key, context); };
+                        playerControls.Player.Dash.canceled -= delegate (InputAction.CallbackContext context) { Dequeue(key, context); };
+
+                        break;
+                    }
+                case ActionKey.Crouch:
+                    {
+                        playerControls.Player.Crouch.performed -= delegate (InputAction.CallbackContext context) { Enqueue(key, context); };
+                        playerControls.Player.Crouch.canceled -= delegate (InputAction.CallbackContext context) { Dequeue(key, context); };
 
                         break;
                     }
@@ -151,14 +157,14 @@ namespace Player
             }
         }
 
-        private void SendKey(ActionKey key, InputAction.CallbackContext context)
+        private void Enqueue(ActionKey key, InputAction.CallbackContext context)
         {
-            actionQueue.AddKey(key);
+            actionQueue.Enqueue(key);
         }
 
-        private void RemoveKey(ActionKey key, InputAction.CallbackContext context)
+        private void Dequeue(ActionKey key, InputAction.CallbackContext context)
         {
-            actionQueue.RemoveKey(key);
+            actionQueue.Dequeue(key);
         }
     }
 }
