@@ -6,35 +6,29 @@ namespace Player
 {
     public class StateFactory
     {
-        private Player player;
-        //private Dictionary<StateKey, State> availableStates;
-
-        private InputManager inputManager;
-
+        private readonly Player player;
+        private Dictionary<StateKey, State> playerStates;
         public StateFactory(Player player)
         {
             this.player = player;
-
-            //availableStates = new Dictionary<StateKey, State>();
-            inputManager = InputManager.instance;
+            InitializeStates();
         }
 
-        private void Initialize()
+        private void InitializeStates()
         {
-
+            playerStates = new Dictionary<StateKey, State>()
+            {
+                {StateKey.Grounded, new Grounded(player)},
+            };
         }
 
-        //public void CreateState(StateKey key, State state)
-        //{
-        //    if (availableStates.ContainsKey(key))
-        //    {
-        //        return;
-        //    }
+        public void CreateState(StateKey key)
+        {
+            if (playerStates.ContainsKey(key))
+            {
+                return;
+            }
 
-        //    availableStates.Add(key, state);
-        //    inputManager.AddKey(key);
-
-        //    Debug.Log(key + " created");
-        //}
+        }
     }
 }

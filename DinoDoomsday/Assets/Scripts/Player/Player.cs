@@ -8,6 +8,7 @@ namespace Player
 {
     public class Player : MonoBehaviour
     {
+        private ActionFactory actionFactory;
         private StateFactory stateFactory;
 
         public void Awake()
@@ -17,13 +18,8 @@ namespace Player
 
         public void Start()
         {
-            InitializeStates();
-        }
-
-        private void InitializeStates()
-        {
-            
-
+            actionFactory = new ActionFactory(this);
+            stateFactory = new StateFactory(this);
         }
 
         #region To Move

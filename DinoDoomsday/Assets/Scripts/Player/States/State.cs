@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class State : MonoBehaviour
+namespace Player
 {
-    // Start is called before the first frame update
-    void Start()
+    public abstract class State
     {
-        
-    }
+        protected StateKey stateKey;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        protected Player player;
+        protected GameObject gameObject;
+
+        public State(Player player)
+        {
+            this.player = player;
+        }
     }
 }

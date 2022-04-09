@@ -6,12 +6,6 @@ namespace Player
 {
     public enum StateKey
     {
-        // Don't add subclasses?
-        Jump,
-        Move, Walk, Dash,
-        Attack,
-
-        // Jump + Attack
-        JumpingAttack
+        Grounded, Aerial, Crouched
     };
 }
