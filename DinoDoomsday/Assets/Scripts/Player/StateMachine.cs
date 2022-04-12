@@ -7,14 +7,17 @@ namespace Player
 {
     public class StateMachine : MonoBehaviour
     {
-        [SerializeField]
-        private Player player;
-        
         public static StateMachine instance { get; private set; }
 
+        [SerializeField]
+        private Player player;
+
+        [SerializeField] private ActionQueue actionQueue;
         public State CurrentState { get; private set; }
         public Dictionary<StateKey, State> availableStates { get; private set; }
         public List<ActionKey> activeActions;
+
+        public Action<StateKey> onStateChanged;
 
         public void Awake()
         {
@@ -25,7 +28,19 @@ namespace Player
         public void Start()
         {
             player = Player.instance;
+            actionQueue = ActionQueue.getInstance;
+
             availableStates = InitializeStates();
+        }
+
+        public void OnEnable()
+        {
+            onStateChanged += ChangeState;
+        }
+
+        public void OnDisable()
+        {
+            onStateChanged -= ChangeState;
         }
 
         private Dictionary<StateKey, State> InitializeStates()
@@ -53,6 +68,17 @@ namespace Player
                 return;
             }
             availableStates.Add(stateKey, state);
+        }
+
+        public void ChangeState(StateKey key)
+        {
+            if (!availableStates.ContainsKey(key))
+            {
+                throw new Exception("StateMachine does not have StateKey: " + key);
+            }
+
+            CurrentState = availableStates[key];
+            Debug.Log(CurrentState);
         }
 
     }

@@ -13,7 +13,6 @@ namespace Player
         public Rigidbody2D rigidBody { get; private set; }
 
         public StateFactory stateFactory => StateFactory.getInstance;
-
         public ActionFactory actionFactory => ActionFactory.instance;
 
         public void Awake()
@@ -24,6 +23,7 @@ namespace Player
 
         public void Start()
         {
+
         }
         
     }

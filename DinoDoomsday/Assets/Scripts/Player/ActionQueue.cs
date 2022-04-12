@@ -30,22 +30,19 @@ namespace Player
                 return instance;
             }
         }
-
-        // Add ACTIVE Action to Queue
-        // Combine Actions if valid
+        
         public void Enqueue(ActionKey key)
         {
-            //if (!stateMachine.CurrentState.actions.ContainsKey(key))
-            //{
-            //    return;
-            //}
+            if (!stateMachine.CurrentState.actions.ContainsKey(key))
+            {
+                return;
+            }
 
             activeActions.Add(key);
 
             SendKey();
         }
-
-        // Remove Action from Queue
+        
         public void Dequeue(ActionKey key)
         {
             if (!activeActions.Contains(key))
@@ -60,10 +57,7 @@ namespace Player
 
         private void SendKey()
         {
-            foreach (var action in activeActions)
-            {
-                Debug.Log(action + " ");
-            }
+            stateMachine.activeActions = activeActions;
         }
 
     }

@@ -6,15 +6,13 @@ namespace Player
 {
     public class StateFactory
     {
-        private Player player;
         private StateMachine stateMachine;
 
         public static StateFactory instance { get; private set; }
         private StateFactory()
         {
             instance = this;
-
-            this.player = Player.instance;
+            
             stateMachine = StateMachine.instance;
         }
 
