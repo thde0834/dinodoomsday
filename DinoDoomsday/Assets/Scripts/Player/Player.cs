@@ -15,6 +15,8 @@ namespace Player
         public StateFactory stateFactory => StateFactory.getInstance;
         public ActionFactory actionFactory => ActionFactory.instance;
 
+        private int health;
+
         public void Awake()
         {
             instance = this;
