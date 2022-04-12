@@ -19,12 +19,20 @@ namespace Player
         {
             instance = this;
             rigidBody = GetComponent<Rigidbody2D>();
+            health = 3;
         }
 
-        public void Start()
-        {
-
+        //for collision detection info referenced https://www.youtube.com/watch?v=0ZJPmjA5Hv0
+        private void OnCollisionEnter2D(Collision2D collision) {
+            Debug.Log("in collsion:" + collision.transform.tag);
+            if (collision.transform.tag == "Meteorite") {
+                health -= 1;
+                Debug.Log("reduced health");
+            }
+            if (health == 0) {
+                Debug.Log("Player died");
+                //TODO: dying scene change
+            }
         }
-        
     }
 }
