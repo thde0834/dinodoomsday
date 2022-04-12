@@ -6,21 +6,20 @@ using UnityEngine;
 
 namespace Player
 {
-    public class Grounded : State
+    public class Aerial : State
     {
-        public Grounded(Player player) : base(player)
+        public Aerial(Player player) : base(player)
         {
-            stateKey = StateKey.Grounded;
+            stateKey = StateKey.Aerial;
             Debug.Log(stateKey + " instantiated");
-            
+
         }
 
         protected override Dictionary<ActionKey, PlayerAction> initializeActions()
         {
             var initialActions = new Dictionary<ActionKey, PlayerAction>()
             {
-                {ActionKey.Move, new Walk(player)},
-                {ActionKey.Jump, new Jump(player)}
+
             };
 
             return initialActions;
