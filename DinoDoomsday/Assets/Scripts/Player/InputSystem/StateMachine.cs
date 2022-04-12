@@ -48,6 +48,7 @@ namespace Player
             var initialStates = new Dictionary<StateKey, State>()
             {
                 {StateKey.Grounded, new Grounded(player)},
+                {StateKey.Aerial, new Aerial(player)}
             };
 
             return initialStates;

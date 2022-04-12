@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace Player
 {
-    public class Walk : PlayerAction
+    public class Jump : PlayerAction
     {
-        public Walk(Player player) : base(player)
+        public Jump(Player player) : base(player)
         {
-            actionKey = ActionKey.Move;
+            actionKey = ActionKey.Jump;
             InitializeAction();
-            Debug.Log("Walk instantiated");
+            Debug.Log("Jump instantiated");
         }
 
         public override void Perform()
         {
-            Debug.Log("Walking");
+            Debug.Log("Jumping");
         }
     }
 }
