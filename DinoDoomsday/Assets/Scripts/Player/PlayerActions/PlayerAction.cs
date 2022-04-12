@@ -18,7 +18,7 @@ namespace Player
         {
             this.player = player;
             gameObject = player.gameObject;
-            rigidbody = player.rigidbody;
+            rigidbody = player.GetComponent<Rigidbody2D>();
         }
 
         // Called in child constructor
