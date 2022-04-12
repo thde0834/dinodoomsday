@@ -15,7 +15,7 @@ namespace Player
 
         public override void Perform()
         {
-            Debug.Log("Jumping");
+            rigidbody.velocity += Vector2.up * 5;
         }
     }
 }

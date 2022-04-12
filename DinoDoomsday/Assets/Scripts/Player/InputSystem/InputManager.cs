@@ -9,7 +9,7 @@ namespace Player
         public static InputManager instance { get; private set; }
 
         private ActionQueue actionQueue;
-        private PlayerControls playerControls;
+        public PlayerControls playerControls { get; private set; }
 
         // All ActionKeys that the Player has unlocked
         private HashSet<ActionKey> availableActions = new HashSet<ActionKey>();
