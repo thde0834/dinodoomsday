@@ -5,39 +5,54 @@ using UnityEngine;
 
 namespace Player
 {
-    public class StateMachine
+    public class StateMachine : MonoBehaviour
     {
-        private static StateMachine instance = new StateMachine();
-        //private State defaultState;
-        //public State CurrentState { get; private set; }
+        [SerializeField]
+        private Player player;
+        
+        public static StateMachine instance { get; private set; }
 
-        private StateMachine()
+        public State CurrentState { get; private set; }
+        public Dictionary<StateKey, State> availableStates { get; private set; }
+        public List<ActionKey> activeActions;
+
+        public void Awake()
         {
             instance = this;
-            //CurrentState = null;    // TO DO: set 'default' state
+            activeActions = new List<ActionKey>();
         }
 
-        public static StateMachine getInstance
+        public void Start()
         {
-            get
+            player = Player.instance;
+            availableStates = InitializeStates();
+        }
+
+        private Dictionary<StateKey, State> InitializeStates()
+        {
+            var initialStates = new Dictionary<StateKey, State>()
             {
-                if (instance == null)
-                {
-                    instance = new StateMachine();
-                }
-                return instance;
+                {StateKey.Grounded, new Grounded(player)},
+            };
+
+            return initialStates;
+        }
+        
+        public void FixedUpdate()
+        {
+            foreach (var key in activeActions)
+            {
+                CurrentState.performAction(key);
             }
         }
 
-        //public void ChangeState(State state)
-        //{
-        //    CurrentState = state;
-        //}
-
-        public void Update()
+        public void AddState(StateKey stateKey, State state)
         {
-            // if currentstate == null then currentstate = idlestate
-            //CurrentState.performAction();
+            if (availableStates.ContainsKey(stateKey))
+            {
+                return;
+            }
+            availableStates.Add(stateKey, state);
         }
 
     }

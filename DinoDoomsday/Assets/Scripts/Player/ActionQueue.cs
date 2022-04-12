@@ -8,16 +8,15 @@ namespace Player
     public class ActionQueue
     {
         private static ActionQueue instance = new ActionQueue();
-        private List<ActionKey> activeActions;
+        private StateMachine stateMachine;
 
-        private event Action onUpdateQueue;
+        private List<ActionKey> activeActions;
 
         private ActionQueue()
         {
             instance = this;
             activeActions = new List<ActionKey>();
-
-            onUpdateQueue += SendKey;
+            stateMachine = StateMachine.instance;
         }
 
         public static ActionQueue getInstance
@@ -36,50 +35,36 @@ namespace Player
         // Combine Actions if valid
         public void Enqueue(ActionKey key)
         {
-            // adding logic HERE
+            //if (!stateMachine.CurrentState.actions.ContainsKey(key))
+            //{
+            //    return;
+            //}
+
             activeActions.Add(key);
 
-            // then add result ActionKey
-            string keys = "";
-            foreach (var k in activeActions)
-            {
-                keys += k + " ";
-            }
-
-            //Debug.Log(keys);
-
-            onUpdateQueue();
+            SendKey();
         }
 
         // Remove Action from Queue
         public void Dequeue(ActionKey key)
         {
-            
-            activeActions.Remove(key);
-
-            string keys = "";
-            foreach (var k in activeActions)
+            if (!activeActions.Contains(key))
             {
-                keys += k + " ";
+                return;
             }
 
-            //Debug.Log(keys);
+            activeActions.Remove(key);
 
-            onUpdateQueue();
+            SendKey();
         }
 
         private void SendKey()
         {
-            if (activeActions.Count == 0)
+            foreach (var action in activeActions)
             {
-                // send null
-                Debug.Log("idle");
-                return;
+                Debug.Log(action + " ");
             }
-            Debug.Log(activeActions.Last());
-            
         }
-
 
     }
 }

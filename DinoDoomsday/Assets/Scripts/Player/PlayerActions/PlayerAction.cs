@@ -6,9 +6,14 @@ namespace Player
 {
     public abstract class PlayerAction
     {
-        protected ActionKey actionKey;
-
         protected Player player;
         protected GameObject gameObject;
+
+        public PlayerAction(Player player)
+        {
+            this.player = player;
+            gameObject = player.gameObject;
+        }
+        public abstract void Perform();
     }
 }

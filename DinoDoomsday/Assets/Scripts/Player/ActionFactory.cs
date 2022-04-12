@@ -9,24 +9,34 @@ namespace Player
 {
     public class ActionFactory
     {
+        public static ActionFactory instance { get; private set; }
+
         private Player player;
+        private Dictionary<StateKey, Dictionary<ActionKey, PlayerAction>> unlockedActions;
 
-        private Dictionary<ActionKey, PlayerAction> playerActions;
-
-        public ActionFactory(Player player)
+        private InputManager inputManager;
+        private ActionFactory()
         {
-            this.player = player;
-            InitializeActions();
+            instance = this;
+
+            this.player = Player.instance;
+            inputManager = InputManager.instance;
+
+            unlockedActions = new Dictionary<StateKey, Dictionary<ActionKey, PlayerAction>>();
         }
 
-        private void InitializeActions()
+        public static ActionFactory getInstance
         {
-            
-        }
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new ActionFactory();
+                }
 
-        public void CreateAction(ActionKey key)
-        {
-
+                return instance;
+            }
         }
+        
     }
 }
