@@ -8,7 +8,7 @@ namespace Player
     {
         public static InputManager instance { get; private set; }
 
-        private ActionQueue actionQueue = ActionQueue.getInstance;
+        private ActionQueue actionQueue;
         private PlayerControls playerControls;
 
         // All ActionKeys that the Player has unlocked
@@ -23,6 +23,11 @@ namespace Player
 
             playerControls = new PlayerControls();
             playerControls.Player.Enable();
+        }
+
+        public void Start()
+        {
+            actionQueue = ActionQueue.getInstance;
         }
 
         public void AddKey(ActionKey key)
