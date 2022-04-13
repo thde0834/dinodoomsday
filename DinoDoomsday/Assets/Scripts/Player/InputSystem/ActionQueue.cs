@@ -7,7 +7,7 @@ namespace Player
 {
     public class ActionQueue
     {
-        private static ActionQueue instance = new ActionQueue();
+        private static ActionQueue instance;
         private StateMachine stateMachine;
 
         private List<ActionKey> activeActions;

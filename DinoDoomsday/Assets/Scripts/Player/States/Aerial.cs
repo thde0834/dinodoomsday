@@ -19,6 +19,7 @@ namespace Player
         {
             var initialActions = new Dictionary<ActionKey, PlayerAction>()
             {
+                {ActionKey.Jump, new AirJump(player)},
 
             };
 

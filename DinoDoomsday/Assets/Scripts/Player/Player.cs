@@ -21,8 +21,7 @@ namespace Player
     {
         // Should NOT be referenced in an Awake() function
         public static Player instance { get; private set; }
-        // public Rigidbody2D rigidbody { get; private set; }
-        public Rigidbody2D rigidBody;
+        public Rigidbody2D rb { get; private set; }
 
         public StateFactory stateFactory => StateFactory.getInstance;
         public ActionFactory actionFactory => ActionFactory.instance;
@@ -36,7 +35,7 @@ namespace Player
         public void Awake()
         {
             instance = this;
-            rigidBody = GetComponent<Rigidbody2D>();
+            rb = GetComponent<Rigidbody2D>();
             health = 3;
             jsonReader = new ReadCustomizationData();
             CustomizationDataObj customizationDataObj = jsonReader.readJson();

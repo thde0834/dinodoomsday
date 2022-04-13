@@ -8,7 +8,7 @@ namespace Player
     {
         protected Player player;
         protected GameObject gameObject;
-        protected Rigidbody2D rigidbody;
+        protected Rigidbody2D rb;
 
         protected InputManager inputManager;
 
@@ -18,7 +18,7 @@ namespace Player
         {
             this.player = player;
             gameObject = player.gameObject;
-            rigidbody = player.GetComponent<Rigidbody2D>();
+            rb = player.rb;
         }
 
         // Called in child constructor

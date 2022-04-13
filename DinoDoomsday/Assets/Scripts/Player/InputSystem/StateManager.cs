@@ -40,7 +40,6 @@ namespace Player
         // Called when Player leaves ground (e.g. when Player jumps)
         private void OnTriggerExit2D(Collider2D collider)
         {
-            var isGrounded = false;
             if (StateKey.Grounded == currentStateKey)
             {
                 currentStateKey = StateKey.Aerial;
