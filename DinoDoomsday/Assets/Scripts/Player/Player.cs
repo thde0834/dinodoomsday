@@ -10,10 +10,13 @@ namespace Player
     {
         // Should NOT be referenced in an Awake() function
         public static Player instance { get; private set; }
-        public Rigidbody2D rigidBody { get; private set; }
+        // public Rigidbody2D rigidbody { get; private set; }
+        public Rigidbody2D rigidBody;
 
         public StateFactory stateFactory => StateFactory.getInstance;
         public ActionFactory actionFactory => ActionFactory.instance;
+
+        private int health;
 
         public void Awake()
         {
