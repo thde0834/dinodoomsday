@@ -12,9 +12,11 @@ namespace Player
         [SerializeField]
         private Player player;
 
-        [SerializeField] private ActionQueue actionQueue;
+        [SerializeField] 
+        private ActionQueue actionQueue;
         public State CurrentState { get; private set; }
         public Dictionary<StateKey, State> availableStates { get; private set; }
+
         public List<ActionKey> activeActions;
 
         public Action<StateKey> onStateChanged;
@@ -79,7 +81,6 @@ namespace Player
             }
 
             CurrentState = availableStates[key];
-            Debug.Log(CurrentState);
         }
 
     }

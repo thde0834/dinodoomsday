@@ -20,7 +20,7 @@ namespace Player
         public override void Perform()
         {
             var moveValue = playerControls.Player.Move.ReadValue<Vector2>();
-            rigidbody.velocity = moveValue * 4;
+            rb.velocity = moveValue * 4;
         }
     }
 }
