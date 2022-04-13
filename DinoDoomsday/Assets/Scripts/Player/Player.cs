@@ -6,6 +6,17 @@ using UnityEngine.InputSystem;
 
 namespace Player
 {
+    public enum Color {
+        Blue,
+        Red,
+        Pink
+    }
+
+    public enum Hat {
+        None,
+        Cowboy,
+        Helmet
+    }
     public class Player : MonoBehaviour
     {
         // Should NOT be referenced in an Awake() function
@@ -15,16 +26,53 @@ namespace Player
         public StateFactory stateFactory => StateFactory.getInstance;
         public ActionFactory actionFactory => ActionFactory.instance;
 
+        private int health;
+        private Color primaryColor;
+        private Color secondaryColor;
+        private Hat hat;
+        private ReadCustomizationData jsonReader;
+
         public void Awake()
         {
             instance = this;
             rb = GetComponent<Rigidbody2D>();
+            health = 3;
+            jsonReader = new ReadCustomizationData();
+            CustomizationDataObj customizationDataObj = jsonReader.readJson();
+            if (customizationDataObj.primaryColor != null) {
+                primaryColor = customizationDataObj.primaryColor;
+                secondaryColor = customizationDataObj.secondaryColor;
+                hat = customizationDataObj.hat;
+            } else { //setting default dinosaur settings if they have not customized their character
+                primaryColor = Color.Blue;
+                secondaryColor = Color.Red;
+                hat = Hat.None;
+            }
         }
 
-        public void Start()
-        {
-
+        //for collision detection info referenced https://www.youtube.com/watch?v=0ZJPmjA5Hv0
+        private void OnCollisionEnter2D(Collision2D collision) {
+            Debug.Log("in collsion:" + collision.transform.tag);
+            if (collision.transform.tag == "Meteorite" || collision.transform.tag == "Enemy") {
+                health -= 1;
+                Debug.Log("reduced health");
+            }
+            if (health == 0) {
+                Debug.Log("Player died");
+                //TODO: dying scene change
+            }
         }
-        
+
+        public void changePrimaryColor(Color color) {
+            this.primaryColor = color;
+        }
+
+        public void changeSecondaryColor(Color color) {
+            this.secondaryColor = color;
+        }
+
+        public void changeHat(Hat hat) {
+            this.hat = hat;
+        }
     }
 }
