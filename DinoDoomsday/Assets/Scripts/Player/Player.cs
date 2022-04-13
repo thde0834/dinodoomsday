@@ -3,7 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+public enum Color {
+    Blue,
+    Red,
+    Pink
+}
 
+public enum Hat {
+    None,
+    Cowboy,
+    Helmet
+}
 namespace Player
 {
     public class Player : MonoBehaviour
@@ -17,12 +27,18 @@ namespace Player
         public ActionFactory actionFactory => ActionFactory.instance;
 
         private int health;
+        private Color primaryColor;
+        private Color secondaryColor;
+        private Hat hat;
 
         public void Awake()
         {
             instance = this;
             rigidBody = GetComponent<Rigidbody2D>();
             health = 3;
+            primaryColor = Color.Blue;
+            secondaryColor = Color.Red;
+            hat = Hat.None;
         }
 
         //for collision detection info referenced https://www.youtube.com/watch?v=0ZJPmjA5Hv0
@@ -36,6 +52,18 @@ namespace Player
                 Debug.Log("Player died");
                 //TODO: dying scene change
             }
+        }
+
+        public void changePrimaryColor(Color color) {
+            this.primaryColor = color;
+        }
+
+        public void changeSecondaryColor(Color color) {
+            this.secondaryColor = color;
+        }
+
+        public void changeHat(Hat hat) {
+            this.hat = hat;
         }
     }
 }
