@@ -7,6 +7,7 @@ public class CharacterCustomizationButtons : MonoBehaviour
 {
     //referenced https://www.youtube.com/watch?v=zObWVOv1GlE for hiding and creating character customization object
     public GameObject CharacterCustomization;
+    public CharacterCustomizationController controllerRef;
     //referenced https://www.youtube.com/watch?v=zObWVOv1GlE for loading new scenes
     List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
     // Start is called before the first frame update
@@ -30,7 +31,7 @@ public class CharacterCustomizationButtons : MonoBehaviour
 
     public void save() {
         Debug.Log("pressed save");
-        //TODO: finish saving state
+        controllerRef.save();
         hideCharacterCustomization();
         scenesToLoad.Add(SceneManager.LoadSceneAsync("Main Menu"));
     }

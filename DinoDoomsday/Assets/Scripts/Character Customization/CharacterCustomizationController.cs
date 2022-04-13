@@ -11,6 +11,7 @@ public class CharacterCustomizationController : MonoBehaviour
     public Transform dropdownPrimary;
     public Transform dropdownSecondary;
     public Transform dropdownHat;
+    public SaveCustomizationData dataSavingObj;
 
     // Start is called before the first frame update
     void Start()
@@ -45,5 +46,11 @@ public class CharacterCustomizationController : MonoBehaviour
         string hat =  dropdownHat.GetComponent<Dropdown>().options[dropdownHat.GetComponent<Dropdown>().value].text;
         Debug.Log(hat);
         this.hat = hat;
+    }
+
+    public void save() {
+        string[] arr = {primaryColor, secondaryColor, hat};
+        Debug.Log("arr to save" + arr[0] + arr[1] + arr[2]);
+        this.dataSavingObj.saveToJson(arr);
     }
 }
