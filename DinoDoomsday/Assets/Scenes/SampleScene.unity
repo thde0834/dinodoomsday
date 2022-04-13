@@ -421,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meteoritePrefab: {fileID: 778856448909536869, guid: 84bd5fa7efc394198840c7512b2e74ea, type: 3}
+  enemyPrefab: {fileID: 5337995559221897060, guid: 312d2d7694bc44436801ec0a2a049560, type: 3}
   player: {fileID: 0}
 --- !u!1 &896091022
 GameObject:
@@ -560,7 +561,7 @@ GameObject:
   - component: {fileID: 1365425245}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

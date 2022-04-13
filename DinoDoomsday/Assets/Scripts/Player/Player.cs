@@ -54,7 +54,7 @@ namespace Player
         //for collision detection info referenced https://www.youtube.com/watch?v=0ZJPmjA5Hv0
         private void OnCollisionEnter2D(Collision2D collision) {
             Debug.Log("in collsion:" + collision.transform.tag);
-            if (collision.transform.tag == "Meteorite") {
+            if (collision.transform.tag == "Meteorite" || collision.transform.tag == "Enemy") {
                 health -= 1;
                 Debug.Log("reduced health");
             }
