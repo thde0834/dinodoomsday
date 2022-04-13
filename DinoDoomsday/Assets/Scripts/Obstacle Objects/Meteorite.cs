@@ -5,8 +5,7 @@ using UnityEngine;
 public class Meteorite : MonoBehaviour
 {
     private float speed = 10f;
-    private bool collided = false;
-
+    
     // Start is called before the first frame update
     void Start()
     {
