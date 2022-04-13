@@ -31,15 +31,24 @@ namespace Player
         private Color primaryColor;
         private Color secondaryColor;
         private Hat hat;
+        private ReadCustomizationData jsonReader;
 
         public void Awake()
         {
             instance = this;
             rigidBody = GetComponent<Rigidbody2D>();
             health = 3;
-            primaryColor = Color.Blue;
-            secondaryColor = Color.Red;
-            hat = Hat.None;
+            jsonReader = new ReadCustomizationData();
+            CustomizationDataObj customizationDataObj = jsonReader.readJson();
+            if (customizationDataObj.primaryColor != null) {
+                primaryColor = customizationDataObj.primaryColor;
+                secondaryColor = customizationDataObj.secondaryColor;
+                hat = customizationDataObj.hat;
+            } else { //setting default dinosaur settings if they have not customized their character
+                primaryColor = Color.Blue;
+                secondaryColor = Color.Red;
+                hat = Hat.None;
+            }
         }
 
         //for collision detection info referenced https://www.youtube.com/watch?v=0ZJPmjA5Hv0
