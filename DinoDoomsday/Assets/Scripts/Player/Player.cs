@@ -3,19 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public enum Color {
-    Blue,
-    Red,
-    Pink
-}
 
-public enum Hat {
-    None,
-    Cowboy,
-    Helmet
-}
 namespace Player
 {
+    public enum Color {
+        Blue,
+        Red,
+        Pink
+    }
+
+    public enum Hat {
+        None,
+        Cowboy,
+        Helmet
+    }
     public class Player : MonoBehaviour
     {
         // Should NOT be referenced in an Awake() function

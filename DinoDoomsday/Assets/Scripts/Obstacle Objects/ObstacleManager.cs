@@ -24,9 +24,6 @@ public class ObstacleManager : MonoBehaviour
     }
 
     private void createMeteorite() {
-        //GameObject meteorite = 
         Instantiate(meteoritePrefab);
-        // BoundsIntersecting meteoriteBoundsIntersecting = new BoundsIntersecting(meteorite, player);
-        //meteorites.Add(meteorite);
     }
 }
