@@ -5,18 +5,16 @@ using UnityEngine;
 
 namespace Player
 {
-    public class AirJump : PlayerAction
+    public class AirJump : Jump
     {
         public AirJump(Player player) : base(player)
         {
-            actionKey = ActionKey.Jump;
-            InitializeAction();
             Debug.Log("AirJump instantiated");
         }
-
+        
         public override void Perform()
         {
-            //rigidbody.velocity += Vector2.up * 5;
+            //rb.velocity += Vector2.up * 5;
             Debug.Log("Air Jump performed");
         }
     }

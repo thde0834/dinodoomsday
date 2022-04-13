@@ -19,8 +19,8 @@ namespace Player
         {
             var initialActions = new Dictionary<ActionKey, PlayerAction>()
             {
-                {ActionKey.Move, new Walk(player)},
-                {ActionKey.Jump, new Jump(player)}
+                {ActionKey.Move, new GroundedWalk(player)},
+                {ActionKey.Jump, new GroundedJump(player)}
             };
 
             return initialActions;

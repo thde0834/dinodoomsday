@@ -12,21 +12,26 @@ namespace Player
 
         protected InputManager inputManager;
 
-        protected ActionKey actionKey;
+        public ActionKey actionKey { get; private set; }
 
-        public PlayerAction(Player player)
+        // need a better name for this variable
+        public bool changeOnStateChange { get; protected set; }
+
+        protected PlayerAction(Player player)
         {
             this.player = player;
             gameObject = player.gameObject;
             rb = player.rb;
-        }
 
-        // Called in child constructor
-        protected void InitializeAction()
-        {
+            actionKey = SetActionKey();
             inputManager = InputManager.instance;
             inputManager.AddKey(actionKey);
+
+            // assume true unless declared false in child class
+            changeOnStateChange = true;
         }
+
+        protected abstract ActionKey SetActionKey();
         public abstract void Perform();
     }
 }

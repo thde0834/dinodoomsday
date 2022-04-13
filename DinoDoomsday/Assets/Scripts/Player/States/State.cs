@@ -29,5 +29,15 @@ namespace Player
             }
             actions[key].Perform();
         }
+
+        public PlayerAction GetAction(ActionKey key)
+        {
+            if (!actions.ContainsKey(key))
+            {
+                return null;
+            }
+
+            return actions[key];
+        }
     }
 }

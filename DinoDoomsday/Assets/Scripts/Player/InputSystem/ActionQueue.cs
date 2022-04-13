@@ -10,12 +10,12 @@ namespace Player
         private static ActionQueue instance;
         private StateMachine stateMachine;
 
-        private List<ActionKey> activeActions;
+        private List<ActionKey> activeActionKeys;
 
         private ActionQueue()
         {
             instance = this;
-            activeActions = new List<ActionKey>();
+            activeActionKeys = new List<ActionKey>();
             stateMachine = StateMachine.instance;
         }
 
@@ -33,31 +33,31 @@ namespace Player
         
         public void Enqueue(ActionKey key)
         {
-            if (!stateMachine.CurrentState.actions.ContainsKey(key))
+            if (activeActionKeys.Contains(key)) // redundant?
             {
                 return;
             }
 
-            activeActions.Add(key);
+            activeActionKeys.Add(key);
 
             SendKey();
         }
         
         public void Dequeue(ActionKey key)
         {
-            if (!activeActions.Contains(key))
+            if (!activeActionKeys.Contains(key))
             {
                 return;
             }
 
-            activeActions.Remove(key);
+            activeActionKeys.Remove(key);
 
             SendKey();
         }
 
         private void SendKey()
         {
-            stateMachine.activeActions = activeActions;
+            stateMachine.SetActiveActionKeys(activeActionKeys);
         }
 
     }

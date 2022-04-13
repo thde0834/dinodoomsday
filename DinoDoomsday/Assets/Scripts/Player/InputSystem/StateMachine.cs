@@ -17,14 +17,16 @@ namespace Player
         public State CurrentState { get; private set; }
         public Dictionary<StateKey, State> availableStates { get; private set; }
 
-        public List<ActionKey> activeActions;
+        private List<ActionKey> activeActionKeys;
+        private List<PlayerAction> activePlayerActions;
 
         public Action<StateKey> onStateChanged;
 
         public void Awake()
         {
             instance = this;
-            activeActions = new List<ActionKey>();
+            activeActionKeys = new List<ActionKey>();
+            activePlayerActions = new List<PlayerAction>();
         }
 
         public void Start()
@@ -58,12 +60,13 @@ namespace Player
         
         public void FixedUpdate()
         {
-            foreach (var key in activeActions)
+            foreach (var playerAction in activePlayerActions)
             {
-                CurrentState.performAction(key);
+                playerAction.Perform();
             }
         }
 
+        // Called by StateFactory
         public void AddState(StateKey stateKey, State state)
         {
             if (availableStates.ContainsKey(stateKey))
@@ -73,6 +76,7 @@ namespace Player
             availableStates.Add(stateKey, state);
         }
 
+        // Automatically called by StateManager
         public void ChangeState(StateKey key)
         {
             if (!availableStates.ContainsKey(key))
@@ -81,6 +85,36 @@ namespace Player
             }
 
             CurrentState = availableStates[key];
+
+            foreach (var playerAction in activePlayerActions)
+            {
+                if (playerAction.changeOnStateChange == true)
+                {
+                    activePlayerActions.Remove(playerAction);
+
+                    var newAction = CurrentState.GetAction(playerAction.actionKey);
+                    if (newAction != null)
+                    {
+                        activePlayerActions.Add(newAction);
+                    }
+                }
+            }
+        }
+
+        // Only called when a button goes from unpressed --> pressed
+        public void SetActiveActionKeys(List<ActionKey> list)
+        {
+            activeActionKeys = list;
+
+            activePlayerActions.Clear();
+            foreach (var actionKey in list)
+            {
+                var action = CurrentState.GetAction(actionKey);
+                if (action != null)
+                {
+                    activePlayerActions.Add(action);
+                }
+            }
         }
 
     }

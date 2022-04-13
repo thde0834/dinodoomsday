@@ -4,18 +4,17 @@ using UnityEngine;
 
 namespace Player
 {
-    public class Jump : PlayerAction
+    public abstract class Jump : PlayerAction
     {
-        public Jump(Player player) : base(player)
+        protected Jump(Player player) : base(player)
         {
-            actionKey = ActionKey.Jump;
-            InitializeAction();
-            Debug.Log("Jump instantiated");
+            
         }
 
-        public override void Perform()
+        protected sealed override ActionKey SetActionKey()
         {
-            rb.velocity += Vector2.up * 5;
+            return ActionKey.Jump;
         }
+        
     }
 }

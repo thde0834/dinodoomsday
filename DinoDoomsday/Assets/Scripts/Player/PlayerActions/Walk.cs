@@ -4,23 +4,18 @@ using UnityEngine;
 
 namespace Player
 {
-    public class Walk : PlayerAction
+    public abstract class Walk : PlayerAction
     {
-        private PlayerControls playerControls;
+        protected PlayerControls playerControls;
         public Walk(Player player) : base(player)
         {
-            actionKey = ActionKey.Move;
-            InitializeAction();
-
             playerControls = inputManager.playerControls;
-
-            Debug.Log("Walk instantiated");
         }
 
-        public override void Perform()
+        protected sealed override ActionKey SetActionKey()
         {
-            var moveValue = playerControls.Player.Move.ReadValue<Vector2>();
-            rb.velocity = moveValue * 4;
+            return ActionKey.Move;
         }
+        
     }
 }
