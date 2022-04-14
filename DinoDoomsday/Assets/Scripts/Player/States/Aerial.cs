@@ -12,7 +12,6 @@ namespace Player
         {
             stateKey = StateKey.Aerial;
             Debug.Log(stateKey + " instantiated");
-
         }
 
         protected override Dictionary<ActionKey, PlayerAction> initializeActions()

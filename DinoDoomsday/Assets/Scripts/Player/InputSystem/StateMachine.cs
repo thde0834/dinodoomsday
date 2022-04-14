@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Player
@@ -12,39 +12,24 @@ namespace Player
         [SerializeField]
         private Player player;
 
-        [SerializeField] 
-        private ActionQueue actionQueue;
         public State CurrentState { get; private set; }
         public Dictionary<StateKey, State> availableStates { get; private set; }
 
-        private List<ActionKey> activeActionKeys;
-        private List<PlayerAction> activePlayerActions;
+        private Dictionary<ActionKey, PlayerAction> activeActions;
 
         public Action<StateKey> onStateChanged;
 
         public void Awake()
         {
             instance = this;
-            activeActionKeys = new List<ActionKey>();
-            activePlayerActions = new List<PlayerAction>();
+            activeActions = new Dictionary<ActionKey, PlayerAction>();
         }
 
         public void Start()
         {
             player = Player.instance;
-            actionQueue = ActionQueue.getInstance;
 
             availableStates = InitializeStates();
-        }
-
-        public void OnEnable()
-        {
-            onStateChanged += ChangeState;
-        }
-
-        public void OnDisable()
-        {
-            onStateChanged -= ChangeState;
         }
 
         private Dictionary<StateKey, State> InitializeStates()
@@ -57,12 +42,22 @@ namespace Player
 
             return initialStates;
         }
-        
+
+        public void OnEnable()
+        {
+            onStateChanged += ChangeState;
+        }
+
+        public void OnDisable()
+        {
+            onStateChanged -= ChangeState;
+        }
+
         public void FixedUpdate()
         {
-            foreach (var playerAction in activePlayerActions)
+            foreach (var playerAction in activeActions.Values)
             {
-                playerAction.Perform();
+                playerAction?.Perform();
             }
         }
 
@@ -86,36 +81,37 @@ namespace Player
 
             CurrentState = availableStates[key];
 
-            foreach (var playerAction in activePlayerActions)
+            foreach (var action in activeActions.ToList())
             {
-                if (playerAction.changeOnStateChange == true)
-                {
-                    activePlayerActions.Remove(playerAction);
+                var playerAction = action.Value;
 
-                    var newAction = CurrentState.GetAction(playerAction.actionKey);
-                    if (newAction != null)
-                    {
-                        activePlayerActions.Add(newAction);
-                    }
+                // playerAction != null && playerAction.changeOnStateChange == false
+                if (playerAction is { changeOnStateChange: false })
+                {
+                    continue;
                 }
+
+                activeActions[action.Key] = CurrentState.GetAction(action.Key);
             }
         }
 
-        // Only called when a button goes from unpressed --> pressed
+        // Only called when a button goes from:
+        // unpressed --> pressed OR pressed --> unpressed
         public void SetActiveActionKeys(List<ActionKey> list)
         {
-            activeActionKeys = list;
-
-            activePlayerActions.Clear();
+            activeActions.Clear();
             foreach (var actionKey in list)
             {
-                var action = CurrentState.GetAction(actionKey);
-                if (action != null)
+                var playerAction = CurrentState.GetAction(actionKey);
+                if (playerAction != null)
                 {
-                    activePlayerActions.Add(action);
+                    activeActions.Add(actionKey, playerAction);
+                }
+                else
+                {
+                    activeActions.Add(actionKey, null);
                 }
             }
         }
-
     }
 }
