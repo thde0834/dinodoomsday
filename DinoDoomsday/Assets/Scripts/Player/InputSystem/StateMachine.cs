@@ -11,9 +11,7 @@ namespace Player
 
         [SerializeField]
         private Player player;
-
-        [SerializeField] 
-        private ActionQueue actionQueue;
+        
         public State CurrentState { get; private set; }
         public Dictionary<StateKey, State> availableStates { get; private set; }
 
@@ -32,19 +30,8 @@ namespace Player
         public void Start()
         {
             player = Player.instance;
-            actionQueue = ActionQueue.getInstance;
 
             availableStates = InitializeStates();
-        }
-
-        public void OnEnable()
-        {
-            onStateChanged += ChangeState;
-        }
-
-        public void OnDisable()
-        {
-            onStateChanged -= ChangeState;
         }
 
         private Dictionary<StateKey, State> InitializeStates()
@@ -57,7 +44,17 @@ namespace Player
 
             return initialStates;
         }
-        
+
+        public void OnEnable()
+        {
+            onStateChanged += ChangeState;
+        }
+
+        public void OnDisable()
+        {
+            onStateChanged -= ChangeState;
+        }
+
         public void FixedUpdate()
         {
             foreach (var playerAction in activePlayerActions)
@@ -101,7 +98,8 @@ namespace Player
             }
         }
 
-        // Only called when a button goes from unpressed --> pressed
+        // Only called when a button goes from:
+        // unpressed --> pressed OR pressed --> unpressed
         public void SetActiveActionKeys(List<ActionKey> list)
         {
             activeActionKeys = list;
