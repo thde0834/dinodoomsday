@@ -26,6 +26,8 @@ namespace Player
         public StateFactory stateFactory => StateFactory.getInstance;
         public ActionFactory actionFactory => ActionFactory.instance;
 
+        public HealthDisplayManager healthDisplayManager;
+
         private int health;
         private Color primaryColor;
         private Color secondaryColor;
@@ -55,6 +57,7 @@ namespace Player
             if (collision.transform.tag == "Meteorite" || collision.transform.tag == "Enemy") {
                 health -= 1;
                 Debug.Log("reduced health");
+                healthDisplayManager.deleteHeart();
             }
             if (health == 0) {
                 Debug.Log("Player died");
