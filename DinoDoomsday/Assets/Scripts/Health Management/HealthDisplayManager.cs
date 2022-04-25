@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class HealthDisplayManager : MonoBehaviour
 {
+    //List reference for C#: https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-6.0
     public List<Transform> heartPrefabs = new List<Transform>();
     public Transform heartPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
+        //List reference for C#: https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-6.0
         heartPrefabs.Add(Instantiate(heartPrefab));
         heartPrefabs.Add(Instantiate(heartPrefab));
         heartPrefabs[1].position = new Vector2(-8f, 4f);
@@ -24,7 +26,7 @@ public class HealthDisplayManager : MonoBehaviour
     }
 
     public void deleteHeart() {
-        Debug.Log("in deleteHeart()");
+        //List reference for C#: https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-6.0
         if (heartPrefabs.Count != 0) {
             Destroy(heartPrefabs[heartPrefabs.Count-1].gameObject);
             heartPrefabs.RemoveAt(heartPrefabs.Count-1);
