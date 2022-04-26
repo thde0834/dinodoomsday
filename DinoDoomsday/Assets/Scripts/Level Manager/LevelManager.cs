@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     //referenced https://www.youtube.com/watch?v=zObWVOv1GlE for loading new scenes
     private List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
     public List<Platform> platforms = new List<Platform>();
+    public Transform playerObj;
 
     // Update is called once per frame
     void Update()
@@ -17,6 +18,9 @@ public class LevelManager : MonoBehaviour
         Debug.Log("activePlatform:" + activePlatform);
         if (activePlatform != null && activePlatform.endPlatform) {
             levelComplete();
+        }
+        if (playerObj == null) {
+            scenesToLoad.Add(SceneManager.LoadSceneAsync("Game Over"));
         }
     }
 

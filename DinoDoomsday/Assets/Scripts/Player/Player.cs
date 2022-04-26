@@ -65,7 +65,7 @@ namespace Player
             }
             if (health == 0) {
                 Debug.Log("Player died");
-                //TODO: dying scene change
+                Destroy(this.gameObject);
             }
         }
 

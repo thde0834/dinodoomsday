@@ -9,6 +9,8 @@ public class Camera : MonoBehaviour
     void Update()
     {
         //Camera movement reference: https://forum.unity.com/threads/making-camera-follow-an-object.32831/
-        transform.position = player.position + new Vector3(0f,0f,-10f);   
+        if (player != null) {
+            transform.position = player.position + new Vector3(0f,0f,-10f);   
+        }
     }
 }

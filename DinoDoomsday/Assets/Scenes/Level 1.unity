@@ -272,6 +272,7 @@ MonoBehaviour:
   platforms:
   - {fileID: 273490628}
   - {fileID: 1395830443}
+  playerObj: {fileID: 1922979438}
 --- !u!4 &363556345
 Transform:
   m_ObjectHideFlags: 0
