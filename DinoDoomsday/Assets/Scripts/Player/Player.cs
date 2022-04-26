@@ -52,6 +52,10 @@ namespace Player
             }
         }
 
+        void Update() {
+            healthDisplayManager.changeLocation(transform.position);
+        }
+
         //for collision detection info referenced https://www.youtube.com/watch?v=0ZJPmjA5Hv0
         private void OnCollisionEnter2D(Collision2D collision) {
             if (collision.transform.tag == "Meteorite" || collision.transform.tag == "Enemy") {

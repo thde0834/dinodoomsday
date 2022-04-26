@@ -9,11 +9,17 @@ public class Platform : MonoBehaviour
     private bool completeHalfCycle = false;
     private float cummulativeRotation = 0f;
     public int rotationLimit = 25;
-    public bool shaking = true; //changes if stable platform
+    public bool shaking = false; //changes if stable platform
+    public bool endPlatform = false; //denotes state as last platform of level!
+    private bool active = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (endPlatform) {
+            transform.GetComponent<Renderer>().material.color = new Color(255, 223, 0);
+            Debug.Log("changed color");
+        }   
     }
 
     // Update is called once per frame
@@ -42,5 +48,21 @@ public class Platform : MonoBehaviour
                 completeHalfCycle = false;
             }
         }
+    }
+
+    public bool getActive() {
+        return active;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.transform.tag == "Player") {
+            active = true;
+        }
+    }
+
+    //referenced for on collision exit method name: https://answers.unity.com/questions/1220752/how-to-detect-if-not-colliding.html
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        active = false;
     }
 }

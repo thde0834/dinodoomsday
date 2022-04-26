@@ -307,6 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationLimit: 25
   shaking: 1
+  endPlatform: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,6 +618,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heartPrefabs: []
+  positions:
+  - {x: -9, y: 4, z: 0}
+  - {x: -8, y: 4, z: 0}
+  - {x: -7, y: 4, z: 0}
   heartPrefab: {fileID: 2658729083316264595, guid: 2733ca016c667497fb5111576f6a0b83, type: 3}
 --- !u!1 &1365425237
 GameObject:
