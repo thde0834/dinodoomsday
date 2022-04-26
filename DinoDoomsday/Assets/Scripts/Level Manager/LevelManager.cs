@@ -32,7 +32,8 @@ public class LevelManager : MonoBehaviour
     }
     
     public void levelComplete() {
-        level += 1;
-        // scenesToLoad.Add(SceneManager.LoadSceneAsync("Level" + level));
+        if (level != 5) {
+            scenesToLoad.Add(SceneManager.LoadSceneAsync("Level " + (level + 1)));
+        }
     }
 }
