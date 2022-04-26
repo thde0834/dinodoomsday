@@ -38,6 +38,8 @@ public class LevelManager : MonoBehaviour
     public void levelComplete() {
         if (level != 5) {
             scenesToLoad.Add(SceneManager.LoadSceneAsync("Level " + (level + 1)));
+        } else {
+            scenesToLoad.Add(SceneManager.LoadSceneAsync("You Won!"));
         }
     }
 }
