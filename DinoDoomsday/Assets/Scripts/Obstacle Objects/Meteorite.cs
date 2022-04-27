@@ -18,7 +18,7 @@ public class Meteorite : MonoBehaviour
     {
         float step = speed * Time.deltaTime;
         float newX = Random.Range(-5f,5f)+transform.position.x;
-        if (transform.position.y <= -3) {
+        if (transform.position.y <= -1.5) {
             explode();
         }
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(newX, -3), step);
