@@ -15,7 +15,6 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         Platform activePlatform = getCurrentPlatform();
-        Debug.Log("activePlatform:" + activePlatform);
         if (activePlatform != null && activePlatform.endPlatform) {
             levelComplete();
         }

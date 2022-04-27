@@ -210,7 +210,6 @@ MonoBehaviour:
   level: 1
   platforms:
   - {fileID: 273490628}
-  - {fileID: 0}
   playerObj: {fileID: 1922979438}
 --- !u!4 &363556345
 Transform:
