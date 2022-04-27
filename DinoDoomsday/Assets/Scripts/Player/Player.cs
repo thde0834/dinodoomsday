@@ -41,6 +41,7 @@ namespace Player
             instance = this;
             rb = GetComponent<Rigidbody2D>();
             health = 3;
+            Debug.Log("health:" +health);
             jsonReader = new ReadCustomizationData();
             CustomizationDataObj customizationDataObj = jsonReader.readJson();
             if (customizationDataObj.primaryColor != null) {
@@ -81,6 +82,13 @@ namespace Player
 
         public void changeHat(Hat hat) {
             this.hat = hat;
+        }
+
+        public bool isDead() {
+            if (health <= 0) {
+                return true;
+            } 
+            return false;
         }
     }
 }

@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour
     private List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
     public List<Platform> platforms = new List<Platform>();
     public Transform playerObj;
+    public Player.Player playerRef;
+    private float lastPos = -9f;
 
     // Update is called once per frame
     void Update()
@@ -18,7 +20,7 @@ public class LevelManager : MonoBehaviour
         if (activePlatform != null && activePlatform.endPlatform) {
             levelComplete();
         }
-        if (playerObj == null) {
+        if (playerRef.isDead()) {
             scenesToLoad.Add(SceneManager.LoadSceneAsync("Game Over"));
         }
     }

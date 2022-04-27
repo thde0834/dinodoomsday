@@ -16,10 +16,7 @@ public class Platform : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // if (endPlatform) {
-        //     transform.GetComponent<Renderer>().material.color = new Color(255, 223, 0);
-        //     Debug.Log("changed color");
-        // }   
+    
     }
 
     // Update is called once per frame

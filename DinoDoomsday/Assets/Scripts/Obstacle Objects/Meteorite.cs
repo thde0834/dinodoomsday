@@ -10,14 +10,18 @@ public class Meteorite : MonoBehaviour
     void Start()
     {
         //Random Range reference: https://docs.unity3d.com/ScriptReference/Random.Range.html
-        transform.position = new Vector2(Random.Range(-6f, 6f), 5f);   
+        transform.position = new Vector2(Random.Range(-9f, 100f), 10f);   
     }
 
     // Gradual movement reference: https://docs.unity3d.com/ScriptReference/Transform-position.html and https://docs.unity3d.com/ScriptReference/Vector3.MoveTowards.html
     void Update()
     {
         float step = speed * Time.deltaTime;
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(0f,-2f), step);
+        float newX = Random.Range(-5f,5f)+transform.position.x;
+        if (transform.position.y <= -3) {
+            explode();
+        }
+        transform.position = Vector2.MoveTowards(transform.position, new Vector2(newX, -3), step);
     }
 
     //for collision detection info referenced https://www.youtube.com/watch?v=0ZJPmjA5Hv0

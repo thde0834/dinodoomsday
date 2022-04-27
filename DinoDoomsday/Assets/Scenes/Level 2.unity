@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthDisplayManager: {fileID: 1567845702}
+  animator: {fileID: 0}
 --- !u!114 &155752740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,7 +548,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meteoritePrefab: {fileID: 778856448909536869, guid: 84bd5fa7efc394198840c7512b2e74ea, type: 3}
   enemyPrefab: {fileID: 5337995559221897060, guid: 312d2d7694bc44436801ec0a2a049560, type: 3}
-  player: {fileID: 0}
+  player: {fileID: 155752736}
+  probMeteorite: 0
 --- !u!4 &1465473244
 Transform:
   m_ObjectHideFlags: 0
@@ -811,6 +813,8 @@ MonoBehaviour:
   level: 2
   platforms:
   - {fileID: 1553456875}
+  playerObj: {fileID: 155752744}
+  playerRef: {fileID: 155752739}
 --- !u!4 &1892261076
 Transform:
   m_ObjectHideFlags: 0
