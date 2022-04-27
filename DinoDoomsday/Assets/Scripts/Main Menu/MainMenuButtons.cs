@@ -26,7 +26,7 @@ public class MainMenuButtons : MonoBehaviour
     public void playGame() {
         Debug.Log("pressed play");
         hideMenu();
-        scenesToLoad.Add(SceneManager.LoadSceneAsync("SampleScene"));
+        scenesToLoad.Add(SceneManager.LoadSceneAsync("Level 1"));
     }
 
     public void createCharacter() {

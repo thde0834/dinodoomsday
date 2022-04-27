@@ -26,11 +26,15 @@ namespace Player
         public StateFactory stateFactory => StateFactory.getInstance;
         public ActionFactory actionFactory => ActionFactory.instance;
 
+        public HealthDisplayManager healthDisplayManager;
+
         private int health;
         private Color primaryColor;
         private Color secondaryColor;
         private Hat hat;
         private ReadCustomizationData jsonReader;
+        //referenced https://www.youtube.com/watch?v=hkaysu1Z-N8 to add animations
+        public Animator animator;
 
         public void Awake()
         {
@@ -50,15 +54,20 @@ namespace Player
             }
         }
 
+        void Update() {
+            healthDisplayManager.changeLocation(transform.position);
+        }
+
         //for collision detection info referenced https://www.youtube.com/watch?v=0ZJPmjA5Hv0
         private void OnCollisionEnter2D(Collision2D collision) {
             if (collision.transform.tag == "Meteorite" || collision.transform.tag == "Enemy") {
                 health -= 1;
                 Debug.Log("reduced health");
+                healthDisplayManager.deleteHeart();
             }
             if (health == 0) {
                 Debug.Log("Player died");
-                //TODO: dying scene change
+                Destroy(this.gameObject);
             }
         }
 
