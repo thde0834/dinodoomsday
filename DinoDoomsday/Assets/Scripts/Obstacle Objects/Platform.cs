@@ -13,12 +13,6 @@ public class Platform : MonoBehaviour
     public bool endPlatform = false; //denotes state as last platform of level!
     private bool active = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -29,6 +23,7 @@ public class Platform : MonoBehaviour
 
     //Rotation reference adapted from : https://docs.unity3d.com/ScriptReference/Transform.Rotate.html and https://answers.unity.com/questions/1602053/localrotation-and-transform-rotate.html
     private void shake() {
+        //rotates the platform down to some bound
         if (!completeHalfCycle) {
             z = Time.deltaTime * rotationSpeed;
             cummulativeRotation += z;
@@ -37,7 +32,7 @@ public class Platform : MonoBehaviour
                 completeHalfCycle = true;
             }
         }
-        if (completeHalfCycle) {
+        if (completeHalfCycle) { //rotates the platform up to some bound
             z = -(Time.deltaTime * rotationSpeed);
             cummulativeRotation += z;
             transform.Rotate(0, 0, z, Space.Self);
@@ -51,6 +46,7 @@ public class Platform : MonoBehaviour
         return active;
     }
 
+    //for collision detection info referenced https://www.youtube.com/watch?v=0ZJPmjA5Hv0
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.transform.tag == "Player") {
             active = true;

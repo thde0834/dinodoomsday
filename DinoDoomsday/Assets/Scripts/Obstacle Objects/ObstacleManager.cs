@@ -7,7 +7,7 @@ public class ObstacleManager : MonoBehaviour
     public Transform meteoritePrefab;
     public Transform enemyPrefab;
     public GameObject player;
-    public float probMeteorite = 0f; //probability that meteorite will fall
+    public float probMeteorite = 0f; //probability that meteorite will fall; if higher than more meteorites over course of game
     
     // Update is called once per frame
     void Update()
