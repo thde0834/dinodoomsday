@@ -39,8 +39,7 @@ namespace Player
             }
 
             activeActionKeys.Add(key);
-
-            SendKey();
+            stateMachine.AddActiveActionKey(key);
         }
         
         public void Dequeue(ActionKey key)
@@ -51,13 +50,7 @@ namespace Player
             }
 
             activeActionKeys.Remove(key);
-
-            SendKey();
-        }
-
-        private void SendKey()
-        {
-            stateMachine.SetActiveActionKeys(activeActionKeys);
+            stateMachine.RemoveActiveActionKey(key);
         }
 
     }

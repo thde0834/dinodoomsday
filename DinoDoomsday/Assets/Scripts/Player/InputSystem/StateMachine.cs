@@ -30,6 +30,7 @@ namespace Player
             player = Player.instance;
 
             availableStates = InitializeStates();
+            CurrentState = availableStates[StateManager.instance.currentStateKey];
         }
 
         private Dictionary<StateKey, State> InitializeStates()
@@ -79,7 +80,9 @@ namespace Player
                 throw new Exception("StateMachine does not have StateKey: " + key);
             }
 
+            // CurrentState.onExit();
             CurrentState = availableStates[key];
+            CurrentState.onEnter();
 
             foreach (var action in activeActions.ToList())
             {
@@ -93,25 +96,31 @@ namespace Player
 
                 activeActions[action.Key] = CurrentState.GetAction(action.Key);
             }
+
+            Debug.Log(CurrentState);
+
         }
 
-        // Only called when a button goes from:
-        // unpressed --> pressed OR pressed --> unpressed
-        public void SetActiveActionKeys(List<ActionKey> list)
+        // {ActionKey, PlayerAction} ==> PlayerAction is being performed
+        // {ActionKey, null}         ==> PlayerAction is not being performed, but Key is pressed
+        // {null, null}              ==> Key is not pressed
+        public void AddActiveActionKey(ActionKey actionKey)
         {
-            activeActions.Clear();
-            foreach (var actionKey in list)
+            activeActions.Add(actionKey, CurrentState.GetAction(actionKey));
+            activeActions[actionKey]?.onEnter();
+        }
+
+        public void RemoveActiveActionKey(ActionKey actionKey)
+        {
+            if (!activeActions.ContainsKey(actionKey))
             {
-                var playerAction = CurrentState.GetAction(actionKey);
-                if (playerAction != null)
-                {
-                    activeActions.Add(actionKey, playerAction);
-                }
-                else
-                {
-                    activeActions.Add(actionKey, null);
-                }
+                return;
             }
+
+            // call playerAction.onRemove() e.g. stop jumping
+            activeActions[actionKey]?.onExit();
+
+            activeActions.Remove(actionKey);
         }
     }
 }

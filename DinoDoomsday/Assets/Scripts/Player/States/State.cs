@@ -21,14 +21,15 @@ namespace Player
 
         protected abstract Dictionary<ActionKey, PlayerAction> initializeActions();
 
-        public virtual void performAction(ActionKey key)
+        public virtual void onEnter()
         {
-            if (!actions.ContainsKey(key) || actions[key] == null)
+            foreach (var action in actions.Values)
             {
-                return;
+                action.onStateChange();
             }
-            actions[key].Perform();
         }
+
+        public virtual void onExit() { }
 
         public PlayerAction GetAction(ActionKey key)
         {

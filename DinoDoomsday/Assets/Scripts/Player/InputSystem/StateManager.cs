@@ -8,22 +8,28 @@ namespace Player
 {
     public class StateManager : MonoBehaviour
     {
+        public static StateManager instance { get; private set; }
+        
         [SerializeField] private StateMachine stateMachine;
         [SerializeField] private LayerMask platformLayer;
 
-        private StateKey currentStateKey;
+        public StateKey currentStateKey { get; private set; }
 
         private readonly string PLATFORM_LAYER_NAME = "Platform";
 
         public void Awake()
         {
-            platformLayer = LayerMask.GetMask(PLATFORM_LAYER_NAME);
+            instance = this;
+            platformLayer = (LayerMask)LayerMask.GetMask(PLATFORM_LAYER_NAME);
+
+            // StateMachine's default state is Aerial
+            // Changes to Grounded immediately if the Player is grounded initially
+            currentStateKey = StateKey.Aerial;
         }
 
         public void Start()
         {
             stateMachine = StateMachine.instance;
-            currentStateKey = StateKey.Aerial;
         }
 
         // Called when Player touches ground
@@ -46,8 +52,6 @@ namespace Player
                 stateMachine.onStateChanged?.Invoke(currentStateKey);
             }
         }
-
-
 
 
     }

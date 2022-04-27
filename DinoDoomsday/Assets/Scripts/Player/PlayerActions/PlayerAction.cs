@@ -32,6 +32,13 @@ namespace Player
         }
 
         protected abstract ActionKey SetActionKey();
+
+        public virtual void onStateChange() {}
+
+        public virtual void onEnter() {}
+
         public abstract void Perform();
+
+        public virtual void onExit() {}
     }
 }
