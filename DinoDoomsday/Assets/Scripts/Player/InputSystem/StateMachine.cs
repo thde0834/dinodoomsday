@@ -31,6 +31,7 @@ namespace Player
 
             availableStates = InitializeStates();
             CurrentState = availableStates[StateManager.instance.currentStateKey];
+
         }
 
         private Dictionary<StateKey, State> InitializeStates()
@@ -106,6 +107,10 @@ namespace Player
         // {null, null}              ==> Key is not pressed
         public void AddActiveActionKey(ActionKey actionKey)
         {
+            if (activeActions.ContainsKey(actionKey))
+            {
+                return;
+            }
             activeActions.Add(actionKey, CurrentState.GetAction(actionKey));
             activeActions[actionKey]?.onEnter();
         }
