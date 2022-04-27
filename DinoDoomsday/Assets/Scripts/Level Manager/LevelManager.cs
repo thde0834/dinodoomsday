@@ -10,7 +10,6 @@ public class LevelManager : MonoBehaviour
     public List<Platform> platforms = new List<Platform>();
     public Transform playerObj;
     public Player.Player playerRef;
-    private float lastPos = -9f;
 
     // Update is called once per frame
     void Update()

@@ -4,25 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private float speed = 3f;
     public Rigidbody2D rigidBody;
-    // Start is called before the first frame update
-    void Start()
-    {
-        // float prob = Random.Range(0f,1f);
-        // if (prob <=0.5) {
-        //     transform.position = new Vector2(-6f, -2f);
-        // } else {
-        //     transform.position = new Vector2(6f, -2f);
-        // }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // float step = speed * Time.deltaTime;
-        // transform.position = Vector2.MoveTowards(transform.position, new Vector2(0f,-2f), step);
-    }
 
     //for collision detection info referenced https://www.youtube.com/watch?v=0ZJPmjA5Hv0
     private void OnCollisionEnter2D(Collision2D collision) {

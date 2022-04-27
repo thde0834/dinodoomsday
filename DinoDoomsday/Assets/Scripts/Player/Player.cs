@@ -6,17 +6,6 @@ using UnityEngine.InputSystem;
 
 namespace Player
 {
-    public enum Color {
-        Blue,
-        Red,
-        Pink
-    }
-
-    public enum Hat {
-        None,
-        Cowboy,
-        Helmet
-    }
     public class Player : MonoBehaviour
     {
         // Should NOT be referenced in an Awake() function
@@ -29,10 +18,6 @@ namespace Player
         public HealthDisplayManager healthDisplayManager;
 
         private int health;
-        private Color primaryColor;
-        private Color secondaryColor;
-        private Hat hat;
-        private ReadCustomizationData jsonReader;
         //referenced https://www.youtube.com/watch?v=hkaysu1Z-N8 to add animations
         public Animator animator;
 
@@ -40,18 +25,6 @@ namespace Player
         {
             instance = this;
             health = 3;
-            Debug.Log("health:" +health);
-            jsonReader = new ReadCustomizationData();
-            CustomizationDataObj customizationDataObj = jsonReader.readJson();
-            if (customizationDataObj.primaryColor != null) {
-                primaryColor = customizationDataObj.primaryColor;
-                secondaryColor = customizationDataObj.secondaryColor;
-                hat = customizationDataObj.hat;
-            } else { //setting default dinosaur settings if they have not customized their character
-                primaryColor = Color.Blue;
-                secondaryColor = Color.Red;
-                hat = Hat.None;
-            }
         }
 
         void Update() {
@@ -69,18 +42,6 @@ namespace Player
                 Debug.Log("Player died");
                 Destroy(this.gameObject);
             }
-        }
-
-        public void changePrimaryColor(Color color) {
-            this.primaryColor = color;
-        }
-
-        public void changeSecondaryColor(Color color) {
-            this.secondaryColor = color;
-        }
-
-        public void changeHat(Hat hat) {
-            this.hat = hat;
         }
 
         public bool isDead() {

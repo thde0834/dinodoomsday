@@ -29,11 +29,6 @@ public class MainMenuButtons : MonoBehaviour
         scenesToLoad.Add(SceneManager.LoadSceneAsync("Level 1"));
     }
 
-    public void createCharacter() {
-        Debug.Log("pressed create character");
-        hideMenu();
-        scenesToLoad.Add(SceneManager.LoadSceneAsync("Character Customization"));
-    }
     //referenced https://www.youtube.com/watch?v=zObWVOv1GlE for hiding and creating menu object
     private void hideMenu() {
         menu.SetActive(false);
