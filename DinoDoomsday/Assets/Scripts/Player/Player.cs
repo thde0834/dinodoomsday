@@ -33,6 +33,8 @@ namespace Player
         private Color secondaryColor;
         private Hat hat;
         private ReadCustomizationData jsonReader;
+        //referenced https://www.youtube.com/watch?v=hkaysu1Z-N8 to add animations
+        public Animator animator;
 
         public void Awake()
         {
