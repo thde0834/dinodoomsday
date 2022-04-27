@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public int level = 1;
     //referenced https://www.youtube.com/watch?v=zObWVOv1GlE for loading new scenes
     private List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
     public List<Platform> platforms = new List<Platform>();
@@ -37,10 +36,6 @@ public class LevelManager : MonoBehaviour
     }
     
     public void levelComplete() {
-        if (level != 5) {
-            scenesToLoad.Add(SceneManager.LoadSceneAsync("Level " + (level + 1)));
-        } else {
-            scenesToLoad.Add(SceneManager.LoadSceneAsync("You Won!"));
-        }
+        scenesToLoad.Add(SceneManager.LoadSceneAsync("You Won!"));
     }
 }
