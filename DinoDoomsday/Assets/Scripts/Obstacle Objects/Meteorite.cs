@@ -6,16 +6,17 @@ public class Meteorite : MonoBehaviour
 {
     private float speed = 10f;
     
-    // Start is called before the first frame update
     void Start()
     {
         //Random Range reference: https://docs.unity3d.com/ScriptReference/Random.Range.html
+        //randomly setting the meteorite along the top of the screen
         transform.position = new Vector2(Random.Range(-9f, 100f), 10f);   
     }
 
     // Gradual movement reference: https://docs.unity3d.com/ScriptReference/Transform-position.html and https://docs.unity3d.com/ScriptReference/Vector3.MoveTowards.html
     void Update()
     {
+        //causes the meteorite to fall towards the bottom of the screen
         float step = speed * Time.deltaTime;
         float newX = Random.Range(-5f,5f)+transform.position.x;
         if (transform.position.y <= -1.5) {
@@ -30,8 +31,6 @@ public class Meteorite : MonoBehaviour
     }
 
     void explode() {
-        //TODO: Create explosion animation
-        Debug.Log("Exploding");
         //Referenced https://unphayzed.com/2020/08/07/how-to-destroy-an-object-on-collision-in-unity/#:~:text=To%20destroy%20an%20object%20on%20collision%20within%20the%20using%20ty,()%20method%20for%203D%20games. to destroy game object on collision
         Destroy(this.gameObject);
     }

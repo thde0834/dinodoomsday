@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/*
+ * State/Singleton Class
+ * Takes the current State from the StateManager
+ * Takes ActionKeys to perform from the ActionQueue
+ * Tells PlayerAction classes associated to the current State to Perform() their actions
+ */
 namespace Player
 {
     public class StateMachine : MonoBehaviour

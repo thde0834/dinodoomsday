@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //determines if user is on the last platform of the game
         Platform activePlatform = getCurrentPlatform();
         if (activePlatform != null && activePlatform.endPlatform) {
             levelComplete();
@@ -35,6 +36,7 @@ public class LevelManager : MonoBehaviour
     }
     
     public void levelComplete() {
+        //referenced https://www.youtube.com/watch?v=zObWVOv1GlE for loading new scenes
         scenesToLoad.Add(SceneManager.LoadSceneAsync("You Won!"));
     }
 }
