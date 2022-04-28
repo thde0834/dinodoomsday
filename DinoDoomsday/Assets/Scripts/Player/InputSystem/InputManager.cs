@@ -2,6 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ * Observer/Singleton Class
+ * Subscribes to Player keyboard inputs and sends ActionKeys to the ActionQueue
+ */
+
 namespace Player
 {
     public class InputManager : MonoBehaviour

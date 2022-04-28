@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace Player
 {
+    /*
+     * Observer/Singleton Class
+     * Observes whether the Player is grounded or not and sends the current State to the StateMachine
+     */
     public class StateManager : MonoBehaviour
     {
         public static StateManager instance { get; private set; }

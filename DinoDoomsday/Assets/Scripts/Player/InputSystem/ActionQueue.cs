@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/*
+ * Adapter/Singleton Class
+ * Takes ActionKeys from the InputManager and sends them to the StateMachine
+ */
 namespace Player
 {
     public class ActionQueue
