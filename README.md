@@ -15,5 +15,8 @@ To run the code try cloning the repo and following the following steps:
 
 Unity Version: 2021.3.0f1
 
+PLEASE NOTE: the demo video file size was too large for uploading to the repo directly. Here is the link to our demo video:
+https://drive.google.com/file/d/1JepopH3cblQ3NYGCvn5Qagc6V_YXTKeH/view?usp=sharing
+
 
 Thank you!
